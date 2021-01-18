@@ -1,16 +1,55 @@
 const koa = require('koa')
-const koaRouter = require('@koa/router')
+const Router = require('@koa/router')
+const bodyParser = require('koa-body');
+const {getScopedRouter, setupCategorySystem} = require('sql-arbitrary-category-system-koa-route');
+const {errorHandler, Errors} = require("@almaclaine/koa-utils");
 
-const app = new koa()
-const router = new koaRouter()
+const dbInfo = {
+    user: 'root',
+    host: 'localhost',
+    password: process.env.MYSQL_PW,
+    database: 'sql_category_system'
+};
 
-router.get('/', (ctx) => {
-  ctx.body = {
-    data: 'success'
-  };
-})
+const errorSet = new Set();
+for (const err of Object.keys(Errors)) {
+    errorSet.add(Errors[err]);
+}
 
-app.use(router.routes())
-  .use(router.allowedMethods())
+(async () => {
+    await setupCategorySystem({
+        user: 'root',
+        host: 'localhost',
+        password: process.env.MYSQL_PW,
+    });
 
-app.listen(3000, () => console.log('running on port 3000'))
+    const systemRouter = getScopedRouter(dbInfo);
+
+    const api = new Router();
+    api.use('/api', systemRouter.routes())
+        .use(systemRouter.allowedMethods())
+
+
+    const app = new koa()
+    app.use(bodyParser({multipart: true}));
+    const router = new Router()
+    app.use(
+        errorHandler(
+            errorSet,
+            'unknown_errors.txt',
+            'error_logs.txt'
+        )
+    );
+
+    router.get('/', (ctx) => {
+        ctx.body = {};
+    })
+
+    app.use(router.routes())
+        .use(router.allowedMethods())
+
+    app.use(api.routes())
+        .use(api.allowedMethods())
+
+    app.listen(3000, () => console.log('running on port 3000'))
+})()
