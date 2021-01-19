@@ -1,5 +1,5 @@
 {
-  "name": "svelte-koa-webpack-template",
+  "name": "category-manager",
   "version": "0.1.0",
   "private": true,
   "description": "A template for a svelte application proxied to a koa server using webpack.",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ALMaclaine/svelte-koa-webpack-template.git"
+    "url": "git+https://github.com/ALMaclaine/category-manager.git"
   },
   "keywords": [
     "koa",
@@ -24,9 +24,9 @@
   "author": "Alessandro Maclaine",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ALMaclaine/svelte-koa-webpack-template/issues"
+    "url": "https://github.com/ALMaclaine/category-manager/issues"
   },
-  "homepage": "https://github.com/ALMaclaine/svelte-koa-webpack-template#readme",
+  "homepage": "https://github.com/ALMaclaine/category-manager#readme",
   "dependencies": {
     "@almaclaine/koa-utils": "0.0.7",
     "@almaclaine/mysql-utils": "^0.1.0",
