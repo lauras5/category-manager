@@ -446,3 +446,19 @@ Error: MissingQueryParameter
     at allowedMethods (/Users/Diatta/WebstormProjects/sql-arbitrary-category-system-example/node_modules/@koa/router/lib/router.js:433:12)
     at dispatch (/Users/Diatta/WebstormProjects/sql-arbitrary-category-system-example/node_modules/koa-compose/index.js:42:32)
 
+Mon Jan 18 2021 18:53:15 GMT-0600 (Central Standard Time)
+Error:
+MissingQueryParameter
+Stack Trace:
+Error: MissingQueryParameter
+    at createError (/Users/Diatta/WebstormProjects/sql-arbitrary-category-system-example/node_modules/sql-arbitrary-category-system-koa-route/node_modules/@almaclaine/koa-utils/dist/index.bundle.js:50:21)
+    at _allKeysInArray (/Users/Diatta/WebstormProjects/sql-arbitrary-category-system-example/node_modules/sql-arbitrary-category-system-koa-route/node_modules/@almaclaine/koa-utils/dist/index.bundle.js:63:15)
+    at validateParams (/Users/Diatta/WebstormProjects/sql-arbitrary-category-system-example/node_modules/sql-arbitrary-category-system-koa-route/node_modules/@almaclaine/koa-utils/dist/index.bundle.js:72:9)
+    at dispatch (/Users/Diatta/WebstormProjects/sql-arbitrary-category-system-example/node_modules/koa-compose/index.js:42:32)
+    at /Users/Diatta/WebstormProjects/sql-arbitrary-category-system-example/node_modules/koa-compose/index.js:34:12
+    at dispatch (/Users/Diatta/WebstormProjects/sql-arbitrary-category-system-example/node_modules/koa-compose/index.js:42:32)
+    at /Users/Diatta/WebstormProjects/sql-arbitrary-category-system-example/node_modules/@koa/router/lib/router.js:372:16
+    at dispatch (/Users/Diatta/WebstormProjects/sql-arbitrary-category-system-example/node_modules/koa-compose/index.js:42:32)
+    at allowedMethods (/Users/Diatta/WebstormProjects/sql-arbitrary-category-system-example/node_modules/@koa/router/lib/router.js:433:12)
+    at dispatch (/Users/Diatta/WebstormProjects/sql-arbitrary-category-system-example/node_modules/koa-compose/index.js:42:32)
+

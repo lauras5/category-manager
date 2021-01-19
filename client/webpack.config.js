@@ -1,10 +1,16 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
+const webpack = require('webpack');
 
 const mode = 'development';
 const prod = mode === 'production';
 
 module.exports = {
+	node: {
+		fs: 'empty',
+		net: 'empty',
+		tls: 'empty'
+	},
 	entry: {
 		bundle: ['./src/main.js']
 	},
@@ -34,12 +40,8 @@ module.exports = {
 			{
 				test: /\.css$/,
 				use: [
-					/**
-					 * MiniCssExtractPlugin doesn't support HMR.
-					 * For developing, use 'style-loader' instead.
-					 * */
-					prod ? MiniCssExtractPlugin.loader : 'style-loader',
-					'css-loader'
+					MiniCssExtractPlugin.loader,
+					"css-loader"
 				]
 			}
 		]
@@ -48,16 +50,14 @@ module.exports = {
 	plugins: [
 		new MiniCssExtractPlugin({
 			filename: '[name].css'
-		})
+		}),
+		new webpack.IgnorePlugin(/cardinal/)
 	],
 	devtool: prod ? false : 'source-map',
 	devServer: {
 		proxy: {
 			'/api': {
-				target: 'http://localhost:3000',
-				pathRewrite: {
-					'^/api': ''
-				}
+				target: 'http://localhost:3000'
 			}
 		}
 	}
