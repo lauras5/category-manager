@@ -7,6 +7,8 @@
         getTopLevelCategories
     } from 'sql-arbitrary-category-system-fetch-utils';
     import CategorySet from "./CategorySet.svelte";
+    import Icon from 'fa-svelte';
+    import {faTimes} from '@fortawesome/free-solid-svg-icons/faTimes';
 
     let sets = [];
     let selectedSet = null;
@@ -58,32 +60,13 @@
 
 <div>
     {#each sets as set}
-        <ul>
-            <li>
-                <span on:click={() => handleDelete(set.id)} class="delete">✖</span>
+        <ul class="list-none ml-2 pt-1 pl-2 border-l border-gray-100">
+            <li class="pt-1 pb-1">
+                <span on:click={() => handleDelete(set.id)} class="cursor-default relative text-red-500 font-extralight">
+                    <Icon icon={faTimes}></Icon>
+                </span>
                 <CategorySet {...set}/>
             </li>
         </ul>
     {/each}
 </div>
-
-
-<style>
-    .delete {
-        cursor: default;
-        font-weight: 200;
-        position: relative;
-        color: red;
-    }
-
-    ul {
-        padding: 0.2em 0 0 0.5em;
-        margin: 0 0 0 0.5em;
-        list-style: none;
-        border-left: 1px solid #eee;
-    }
-
-    li {
-        padding: 0.2em 0;
-    }
-</style>

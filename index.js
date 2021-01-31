@@ -29,7 +29,6 @@ for (const err of Object.keys(Errors)) {
     api.use('/api', systemRouter.routes())
         .use(systemRouter.allowedMethods())
 
-
     const app = new koa()
     app.use(bodyParser({multipart: true}));
     const router = new Router()

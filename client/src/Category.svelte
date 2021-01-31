@@ -1,5 +1,10 @@
 <script>
     import {getCategoryChildren, addCategory, deleteCategory} from "sql-arbitrary-category-system-fetch-utils";
+    import Icon from 'fa-svelte';
+    import {faPlus} from '@fortawesome/free-solid-svg-icons/faPlus';
+    import {faTimes} from '@fortawesome/free-solid-svg-icons/faTimes';
+    import {faFolderOpen} from '@fortawesome/free-solid-svg-icons/faFolderOpen';
+    import {faFolder} from '@fortawesome/free-solid-svg-icons/faFolder';
 
     export let expanded = false;
     let modalOpen = false;
@@ -38,16 +43,27 @@
     }
 </script>
 
-<span class="folder" class:hasChildren class:expanded on:click={toggle}>{name}</span>
-<span on:click={() => modalOpen = true} class="add">+</span>
+<span class="pl-1.5 font-bold text-xl" class:expanded on:click={toggle}>
+    {#if hasChildren}
+        {#if expanded}
+            <Icon icon={faFolderOpen}></Icon>
+        {:else}
+            <Icon icon={faFolder}></Icon>
+        {/if}
+    {/if}
+    {name}
+</span>
+<span on:click={() => modalOpen = true} class="relative text-sm">
+    <Icon class="mb-1.5" icon={faPlus}></Icon>
+</span>
 
 {#if modalOpen}
-    <div class="modal" on:click|self={() => modalOpen = false}>
-        <div class="card">
-            <label>
-                Category Name
-                <input bind:value={categoryName} type="text">
-                <button on:click={addCategoryHandler}>Add</button>
+    <div class="bg-black bg-opacity-80 absolute top-0 left-0 w-full h-full flex justify-center items-center" on:click|self={() => modalOpen = false}>
+        <div class="bg-white">
+            <label class="flex flex-col p-3 items-center">
+                <span class="m-1">Category Name</span>
+                <input class="m-1" bind:value={categoryName} type="text">
+                <button class="m-1 w-3/4 bg-gray-200" on:click={addCategoryHandler}>Add</button>
             </label>
         </div>
     </div>
@@ -55,62 +71,14 @@
 
 {#if expanded}
     {#each children as child}
-        <ul>
-            <li>
-                <span on:click={() => deleteCategoryHandler(child.id)} class="delete">✖</span>
+        <ul class="list-none ml-2 pt-1 pl-2 border-l border-gray-100">
+            <li class="pt-1 pb-1">
+                <span on:click={() => deleteCategoryHandler(child.id)} class="delete">
+                    <Icon icon={faTimes}></Icon>
+                </span>
                 <svelte:self {...child}/>
             </li>
         </ul>
     {/each}
 {/if}
 
-
-<style>
-    .card {
-        background-color: white;
-    }
-
-    .modal {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, .8);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .folder {
-        padding: 0 0 0 1.5em;
-        font-weight: bold;
-        font-size: 20px;
-    }
-
-    .hasChildren {
-        background: url(/folder.svg) 0 0.1em no-repeat;
-        background-position-y: 0;
-    }
-
-    .add {
-        font-weight: 900;
-        position: relative;
-        right: 2px;
-    }
-
-    .hasChildren.expanded {
-        background-image: url(/folder-open.svg);
-    }
-
-    ul {
-        padding: 0.2em 0 0 0.5em;
-        margin: 0 0 0 0.5em;
-        list-style: none;
-        border-left: 1px solid #eee;
-    }
-
-    li {
-        padding: 0.2em 0;
-    }
-</style>
