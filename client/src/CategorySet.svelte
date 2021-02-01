@@ -62,7 +62,7 @@
 </span>
 
 {#if modalOpen}
-    <div class="bg-black bg-opacity-80 absolute top-0 left-0 w-full h-full flex justify-center items-center"
+    <div class="bg-black bg-opacity-80 absolute top-0 left-0 w-full h-full flex justify-center items-center z-10"
          on:click|self={() => modalOpen = false}>
         <div class="bg-white">
             <label class="flex flex-col p-3 items-center">
@@ -78,7 +78,8 @@
     {#each children as child}
         <ul class="list-none ml-2 pt-1 pl-2 border-l border-gray-100">
             <li class="pt-1 pb-1">
-                <span on:click={() => deleteCategoryHandler(child.id)} class="delete">
+                <span on:click={() => deleteCategoryHandler(child.id)}
+                      class="cursor-default relative text-red-500 font-extralight">
                     <Icon icon={faTimes}></Icon>
                 </span>
                 <Category {...child}/>

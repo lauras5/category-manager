@@ -23,7 +23,6 @@
         selectedSet = sets[0] || null;
     });
 
-
     async function addHandler() {
         if (!newSetName) return;
         await addCategorySet(newSetName);
@@ -31,7 +30,6 @@
         selectedSet = sets[sets.length - 1];
         newSetName = '';
     }
-
 
     let topCategories = [];
     $: {
@@ -62,7 +60,8 @@
     {#each sets as set}
         <ul class="list-none ml-2 pt-1 pl-2 border-l border-gray-100">
             <li class="pt-1 pb-1">
-                <span on:click={() => handleDelete(set.id)} class="cursor-default relative text-red-500 font-extralight">
+                <span on:click={() => handleDelete(set.id)}
+                      class="cursor-default relative text-red-500 font-extralight">
                     <Icon icon={faTimes}></Icon>
                 </span>
                 <CategorySet {...set}/>
